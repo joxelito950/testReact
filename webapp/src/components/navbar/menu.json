@@ -1,0 +1,106 @@
+{
+  "parametrosSistema": {
+    "titulo": "Parámetros Sistema",
+    "opciones": [{
+      "key": "PARAMETROS",
+      "to": "parametros/fechaProcesoSistema",
+      "ds": "Actualizar Fecha Proceso"
+    }, {
+      "key": "PARAM_PORTAFOIO",
+      "to": "parametroPortafolio",
+      "ds": "Parámetros Portafolio"
+    }, {
+      "key": "LISTA_CONTROL",
+      "to": "listaControl",
+      "ds": "Lista de Control"
+    }, {
+      "key": "DIA_NO_HABIL",
+      "to": "diasNoHabiles",
+      "ds": "Días No Hábiles"
+    }, {
+      "key": "COD_EMISION_DCV",
+      "to": "codigosEmisionDcv",
+      "ds": "Códigos de Emisión DCV"
+    }, {
+      "key": "SM_INVERSION",
+      "to": "smInversiones",
+      "ds": "Actualizar SM Inversiones"
+    }, {
+      "key": "CUENT_BANCARIA",
+      "to": "cuentasBancarias",
+      "ds": "Cuentas Bancarias"
+    }]
+  },
+  "precios": {
+    "titulo": "Precios",
+    "opciones": [{
+      "key": "CRG_PRECIO",
+      "to": "carguePrecios/PRECIOS",
+      "ds": "Cargue de Precios"
+    }, {
+      "key": "CCTRL_CURVA",
+      "to": "controlCurvas",
+      "ds": "Cargue Curvas Forward"
+    }, {
+      "key": "CTRL_CVA_DVA",
+      "to": "controlCVA_DVA",
+      "ds": "Cargue CVA/DVA"
+    }, {
+      "key": "PRECIO_MANUAL",
+      "to": "preciosManual",
+      "ds": "Precios Manuales"
+    }, {
+      "key": "PARAM_PRECIO",
+      "to": "parametrosPrecios/PRECIOS",
+      "ds": "Parámetros de Cargue de Precios"
+    }, {
+      "key": "FACTOR_OPCION",
+      "to": "factoresOpciones",
+      "ds": "Factores de Opciones"
+    }]
+  },
+  "controlProcesosAladdin": {
+    "titulo": "Control Procesos Aladdin",
+    "opciones": [{
+      "key": "PROC_FTP",
+      "to": "procesosFtp",
+      "ds": "Procesos de envío FTP"
+    }, {
+      "key": "INF_DIARIA",
+      "to": "informacionDiaria",
+      "ds": "Actualizar Información Diaria"
+    }, {
+      "key": "PROC_ALADIN",
+      "to": "procesosAladdin/ALADDIN",
+      "ds": "Procesos Aladdin"
+    }, {
+      "key": "CTRL_VALORACION",
+      "to": "controlValoracion",
+      "ds": "Control de Valoración"
+    }, {
+      "key": "FRMT_REGULATORIO",
+      "to": "formatosRegulatorios",
+      "ds": "Formatos Score"
+    }, {
+      "key": "GEN_REPORTE",
+      "to": "generarReportes",
+      "ds": "Generar Reportes"
+    }, {
+      "key": "ENV_ARCHIVO",
+      "to": "enviarArchivos",
+      "ds": "Enviar Archivos"
+    }]
+  },
+  "valorFondo": {
+    "titulo": "Valor Fondo",
+    "opciones": [{
+      "key": "EJEC_VALOR_FONDO",
+      "to": "ejecutarValorFondo",
+      "ds": "Ejecutar Valor Fondo"
+    }, {
+      "key": "VLR_FONDO",
+      "to": "valoresFondo/NAVS",
+      "ds": "Valores de Fondo"
+    }]
+  }
+}

@@ -59,3 +59,7 @@ typings/
 
 # next.js build output
 .next
+webapp/package-lock.json
+*.png
+*.jpg
+*.ico

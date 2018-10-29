@@ -1,0 +1,128 @@
+.fontSizeHeader {
+ font-size: 85%;
+}
+
+.fontSizeHeaderModal {
+  font-size: 110%;
+  font-weight: bold;
+}
+
+.fontSizeDetail {
+ font-size: 80%;
+}
+
+.noFactor {
+  background-color: #FFE0B2;
+}
+
+.variacionNoDefinida {
+  background-color: #F09F9A;
+}
+
+.logoBar {
+  margin-top: 5px;
+}
+
+.logoSession {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 450px;
+  height: 120px
+}
+
+.logoBotron {
+  width: 450px;
+  height: 120px
+}
+
+.headerSession{
+  margin-top: 50px;
+  margin-bottom: 20px;
+  background-color: #eee;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.logoBotronImgLeft {
+  margin-left: 50px;
+}
+
+.logoBotronImgRight {
+  margin-right: 50px;
+}
+
+.btnSecondary {
+  background-color: #E0A025;
+  border-color: #ebc070;
+  color: white;
+}
+
+button.btnSecondary:hover:disabled {
+  background-color: #E0A025;
+  border-color: #ebc070;
+  color: white;
+}
+
+button.btnSecondary:hover {
+  background-color: #C4891C;
+  color: white;
+}
+
+button.btn.btnSecondary:active {
+  color: white;
+}
+
+button.btn.btnSecondary:focus {
+  color: white;
+}
+
+body{margin:40px;}
+
+.btnCircle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+
+.btn i {
+  margin-left: 2px;
+}
+
+.modalSpirit {
+  width: 700px;
+}
+
+.my-group{
+  width:30%;
+}
+
+.hover {
+  position:relative;
+}
+
+.tooltip {
+top:auto;
+padding: 0px 10px;
+background-color:#605E5E;
+color:white;
+border-radius:2.5px;
+opacity:0;
+position:absolute;
+-webkit-transition: opacity 0.5s;
+-moz-transition:  opacity 0.5s;
+-ms-transition: opacity 0.5s;
+-o-transition:  opacity 0.5s;
+transition:  opacity 0.5s;
+}
+
+.hover:hover .tooltip {
+  opacity:1;
+}
+
+.alignNumber {
+  text-align: right;
+}
