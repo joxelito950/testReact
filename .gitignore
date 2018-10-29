@@ -63,3 +63,4 @@ webapp/package-lock.json
 *.png
 *.jpg
 *.ico
+webapp/src/tests/components/appBar.test.js
