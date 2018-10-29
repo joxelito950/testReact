@@ -1,12 +1,13 @@
 import MockAdapter from 'axios-mock-adapter';
 import Axios from 'axios';
 import {
-    showProcessTypes, SHOW_TYPES_PROCESS, generarArchivo, GENERAR_ARCHIVO, checkId, CHECKLIST,
-    checkIdNavs, CHECKLIST_NAVS, findDetails, FIND_DETAILS, guardarPreciosManual, GUARDAR_PRECIOS_MANUAL,
-    obtenerFechaProceso, FECHA_PROCESO, obtenerListaPrecioManual, LISTAR_PRECIOS_MANUAL, actualizarTiposProcesos, UPDATE_PROCESS_TYPE,
-    ocultar, OCULTAR, obtenerListaParametrosPortafolio, LISTAR_PARAMETROS_PORTAFOLIO, validacionFallida, VALIDACION_FALLIDA,
-    validacionExitosa, VALIDACION_EXITOSA, guardarParametroPortafolio, GUARDAR_PARAMETRO_PORTAFOLIO, ejecutarValorFondo, EJECUTAR_VALOR_FONDO,
-    showProcessNavs, SHOW_PROCESS_NAVS, listarValorFondo, LISTAR_VALOR_FONDO
+    showProcessTypes, SHOW_TYPES_PROCESS, darBajaPreciosManual, checkId, CHECKLIST, checkIdNavs, CHECKLIST_NAVS,
+    findDetails, FIND_DETAILS, obtenerFechaProceso, FECHA_PROCESO, obtenerListaPrecioManual,
+    LISTAR_PRECIOS_MANUAL, actualizarTiposProcesos, UPDATE_PROCESS_TYPE, ocultar, OCULTAR,
+    obtenerListaParametrosPortafolio, LISTAR_PARAMETROS_PORTAFOLIO, validacionFallida, VALIDACION_FALLIDA,
+    validacionExitosa, VALIDACION_EXITOSA, guardarParametroPortafolio, GUARDAR_PARAMETRO_PORTAFOLIO,
+    ejecutarValorFondo, EJECUTAR_VALOR_FONDO, showProcessNavs, SHOW_PROCESS_NAVS, listarValorFondo,
+    LISTAR_VALOR_FONDO, listaPrecioManualProcess
 } from '../actions';
 
 var mock = new MockAdapter(Axios);
@@ -23,23 +24,14 @@ describe('Test para showProcessTypes', () => {
     }
 })
 
-describe('Test para generarArchivo', () => {
-    mock.onPost('service').reply(200, 'respuesta');
-    it('Debe despachar con el type GENERAR_ARCHIVO y con el msg Archivo Generado', () => {
-        const funcionGenerarArchivo = generarArchivo([{ id: 0 }], 'service', 'generate');
+describe('Test para darBajaPreciosManual', () => {
+    mock.onPost('service').reply(200, { data: 'respuesta' });
+    it('Debe despachar con el type REMOVE_ITEM_PRECIO', () => {
+        const funcionGenerarArchivo = darBajaPreciosManual([{ id: 1 }, { id: 'prueba' }]);
         const evaluarGuardarArchivo = async (parametro) => {
-            expect(parametro.type).toEqual(GENERAR_ARCHIVO);
-            expect(parametro.msg).toEqual('Archivo Generado');
+            expect(parametro).toBeDefined()
         }
         funcionGenerarArchivo(evaluarGuardarArchivo);
-    })
-    it('Debe despachar con el type GENERAR_ARCHIVO y con el msg No se pudo generar el Archivo, contacte con el Administrador del Sistema', () => {
-        const funcionGenerarArchivoFalla = generarArchivo([{ id: 0 }], 'noService');
-        const evaluarGuardarArchivoFalla = async (parametro) => {
-            expect(parametro.type).toEqual(GENERAR_ARCHIVO);
-            expect(parametro.msg).toEqual('No se pudo generar el Archivo, contacte con el Administrador del Sistema');
-        }
-        funcionGenerarArchivoFalla(evaluarGuardarArchivoFalla);
     })
 })
 
@@ -77,22 +69,43 @@ describe('Test para findDetails', () => {
     })
 })
 
-describe('Test para guardarPreciosManual', () => {
-    it('Debe despachar con el type GUARDAR_PRECIOS_MANUAL y con la respuesta del axios', () => {
-        mock.onPost('/ControlSpiritServices/rest/app/prices/guardar/PreciosManual').reply(200, { data: 'respuesta' });
-        const funcionGuardarPreciosManual = guardarPreciosManual(
-            [{ id: 'a', codigoUnico: '', precioControl: '', fechaRegistro: '', proceso: '' }],
-            'accion',
-            [{ nombre: '' }],
-            [],
-            ''
-        );
-        const evaluarGuardarPreciosManual = async (parametro) => {
-            expect(parametro.type).toEqual(GUARDAR_PRECIOS_MANUAL);
-            expect(parametro.payload).toEqual('respuesta');
-        }
-        funcionGuardarPreciosManual(evaluarGuardarPreciosManual);
-    })
+describe('Test para listaPrecioManualProcess', () => {
+    const fechaProceso = 20082020;
+    it('Debe no hacer nada con los valores enviados', () => {
+        var entidad1 = { id: 1 };
+        var listPrecioOriginal = [{ id: 'test' }];
+        var precioManual = {};
+
+        listaPrecioManualProcess(entidad1, listPrecioOriginal, precioManual, fechaProceso);
+
+        expect(entidad1).toEqual({ id: 1 });
+        expect(listPrecioOriginal).toEqual([{ id: 'test' }])
+        expect(precioManual).toEqual({})
+    });
+    it('Debe agregar a preciomanula.listaPrecioManualNuevo el objeto entidad', () => {
+        var entidad2 = { id: 'prueba' };
+        var listPrecioOriginal = [{ id: 'test' }];
+        var precioManual = { listaPrecioManualNuevo: [] };
+
+        listaPrecioManualProcess(entidad2, listPrecioOriginal, precioManual, fechaProceso);
+
+        expect(entidad2).toEqual({});
+        expect(listPrecioOriginal).toEqual([{ id: 'test' }])
+        expect(precioManual).toEqual({ listaPrecioManualNuevo: [entidad2] })
+    });
+    it('Debe agregar a precioManual.listaPrecioManualNuevo el objeto entidad', () => {
+        var entidad3 = { id: 1, nombre: '1', precio: 1 };
+        var listPrecioOriginal = [{ id: 1, nombre: 'prueba', precio: 321 }, { id: 'test', nombre: 'test', precio: 'test' }];
+        var precioManual = { listaPrecioManualNuevo: [], listaPrecioManualEliminado: [], listaPrecioManualActualizado: [] };
+
+        listaPrecioManualProcess(entidad3, listPrecioOriginal, precioManual, fechaProceso);
+
+        expect(entidad3).toEqual({ id: 1, nombre: '1', precio: 1 });
+        expect(listPrecioOriginal).toEqual([{ id: 1, nombre: 'prueba', precio: 321 }, { id: 'test', nombre: 'test', precio: 'test' }])
+        expect(precioManual.listaPrecioManualNuevo).toEqual([]);
+        expect(precioManual.listaPrecioManualActualizado).toEqual([{ id: 1, nombre: '1', precio: 1 }]);
+        expect(precioManual.listaPrecioManualEliminado).toEqual([{ id: 1, nombre: 'prueba', precio: 321 }]);
+    });
 })
 
 describe('Test para obtenerFechaProceso', () => {
@@ -110,7 +123,7 @@ describe('Test para obtenerFechaProceso', () => {
 
 describe('Test para obtenerListaPrecioManual', () => {
     it('Debe despachar con el type LISTAR_PRECIOS_MANUAL y con la respuesta del axios', () => {
-        mock.onPost('/ControlSpiritServices/rest/app/prices/listar/preciosManual').reply(200, 'respuesta');
+        mock.onPost('/ControlSpiritServices/rest/app/prices/listar/preciosManual').reply(200, { data: 'respuesta' });
         const funcionObtenerListaPrecioManual = obtenerListaPrecioManual();
         const evaluarObtenerListaPrecioManual = async (parametro) => {
             expect(parametro.type).toEqual(LISTAR_PRECIOS_MANUAL);
@@ -126,7 +139,6 @@ describe('Test para actualizarTiposProcesos', () => {
         const funcionActualizarTiposProcesosOk = actualizarTiposProcesos([]);
         const evaluarActualizarTiposProvesosOk = async (parametro) => {
             expect(parametro.type).toEqual(UPDATE_PROCESS_TYPE);
-            expect(parametro.payload).toEqual('respuesta');
         }
         funcionActualizarTiposProcesosOk(evaluarActualizarTiposProvesosOk);
     })
@@ -157,7 +169,6 @@ describe('Test para obtenerListaParametrosPortafolio', () => {
         const funcionObtenerListaParametrosPortafolioOk = obtenerListaParametrosPortafolio();
         const evaluarObtenerListaParametrosPortafolioOk = async (parametro) => {
             expect(parametro.type).toEqual(LISTAR_PARAMETROS_PORTAFOLIO);
-            expect(parametro.payload).toEqual('respuesta');
         }
         funcionObtenerListaParametrosPortafolioOk(evaluarObtenerListaParametrosPortafolioOk);
     })
@@ -230,11 +241,11 @@ describe('Test para ejecutarValorFondo', () => {
 
 describe('Test para showProcessNavs', () => {
     it('Debe despachar con el type SHOW_PROCESS_NAVS y la respuesta del axios con el date enviado', () => {
-        mock.onPost('/ControlSpiritServices/rest/app/procesos/listarNavs').reply(200, 'respuesta');
+        mock.onPost('/ControlSpiritServices/rest/app/procesos/listarNavs').reply(200, []);
         const funcionShowProcessNavs = showProcessNavs('year/month/day');
         const evaluarShowProcessNavs = async (parametro) => {
             expect(parametro.type).toEqual(SHOW_PROCESS_NAVS);
-            expect(parametro.payload.data).toEqual('respuesta');
+            expect(parametro.payload.data).toEqual([]);
             expect(parametro.payload.date).toEqual('year/month/day');
         }
         funcionShowProcessNavs(evaluarShowProcessNavs);
