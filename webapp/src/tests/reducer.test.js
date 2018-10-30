@@ -1,7 +1,7 @@
 import {
     showProcessPrices, showProcessTypes, procesos, procesosNavs, findDetails, OBTENER_FORMATO_REGULATORIO,
     obtenerFechaProceso, actualizarTiposProcesos, obtenerListaPrecioManual, generarArchivo,
-    validacionFallida, tableDynamicParametroPortafolio, ejecutarValorFondo, showProcessNavs, listarValorFondo, obtenerListaProcesosFtp, showProcessTypesFtp, downloadFtp, reintentarProcesoFtp, showProcessAladdin, actualizarFechaProceso, showProcessAlertProgress, tableDynamic, ejecutarValorFondo2, getIdTipoPrecio, login, tableDynamicPrecioManual, tableDynamicPrecioManualDetalle, getListaControl
+    validacionFallida, tableDynamicParametroPortafolio, ejecutarValorFondo, showProcessNavs, listarValorFondo, obtenerListaProcesosFtp, showProcessTypesFtp, downloadFtp, reintentarProcesoFtp, showProcessAladdin, actualizarFechaProceso, showProcessAlertProgress, tableDynamic, ejecutarValorFondo2, getIdTipoPrecio, login, tableDynamicPrecioManual, tableDynamicPrecioManualDetalle, getListaControl, ejecutarFormatoRegulatorio
 } from '../reducers/reducers';
 import {
     SHOW_TYPES_PROCESS, CHECKLIST, SHOW_PROCESS_NAVS, CHECKLIST_NAVS, GENERAR_ARCHIVO, FIND_DETAILS,
@@ -54,7 +54,15 @@ import {
     GUARDAR_LISTA_CONTROL,
     ELIMINAR_ITEM_LISTA_CONTROL,
     ID_PROCESO,
-    SHOW_TYPES_PROCESS_PRICE
+    SHOW_TYPES_PROCESS_PRICE,
+    OBTENER_CRG_POSICIONES,
+    OBTENER_F_351,
+    OBTENER_F_471,
+    OBTENER_F_468,
+    OBTENER_F_397,
+    OBTENER_F_FUTURO,
+    OBTENER_F_472,
+    EJECUTAR_FORMATO_REGULATORIO,
 } from '../actions';
 
 import rootReducer from '../reducers';
@@ -960,5 +968,132 @@ describe('test de getListaControl', () => {
                 { nombre: 'test' }
             ]
         });
+    });
+});
+
+describe('test de ejecutarFormatoRegulatorio', () => {
+    it('No debe ingresar aningun type y retornar el valor enviado ', () => {
+        expect(ejecutarFormatoRegulatorio('state', 'actions'))
+            .toEqual('state');
+    });
+    it('debe ingresar al type OBTENER_CRG_POSICIONES', () => {
+        expect(ejecutarFormatoRegulatorio({},
+            {
+                type: OBTENER_CRG_POSICIONES,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            crgPosiciones: {
+                test: 'test',
+                title: 'Cargue de Posiciones',
+                task: 'CRG_POSICIONES'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_F_351', () => {
+        expect(ejecutarFormatoRegulatorio({},
+            {
+                type: OBTENER_F_351,
+                payload: {
+                    test: 'test'
+                }
+            })).toEqual({
+                f351: {
+                    test: 'test',
+                    title: 'Formato 351',
+                    task: 'F_351'
+                }
+            });
+    });
+    it('Debe ingresar al type OBTENER_F_471', () => {
+        expect(ejecutarFormatoRegulatorio({},
+            {
+                type: OBTENER_F_471,
+                payload: {
+                    test: 'test'
+                }
+            })).toEqual({
+                f471: {
+                    test: 'test',
+                    title: 'Formato 471',
+                    task: 'F_471'
+                }
+            });
+    });
+    it('Debe ingresar al type OBTENER_F_468', () => {
+        expect(ejecutarFormatoRegulatorio({},
+            {
+                type: OBTENER_F_468,
+                payload: {
+                    test: 'test'
+                }
+            })).toEqual({
+                f468: {
+                    test: 'test',
+                    title: 'Formato 468',
+                    task: 'F_468'
+                }
+            });
+    });
+    it('Debe ingresar al type OBTENER_F_397', () => {
+        expect(ejecutarFormatoRegulatorio({},
+            {
+                type: OBTENER_F_397,
+                payload: {
+                    test: 'test'
+                }
+            })).toEqual({
+                f397: {
+                    test: 'test',
+                    title: 'Formato 397',
+                    task: 'F_397'
+                }
+            });
+    });
+    it('Debe ingresar el type OBTENER_F_FUTURO', () => {
+        expect(ejecutarFormatoRegulatorio({},
+            {
+                type: OBTENER_F_FUTURO,
+                payload: {
+                    test: 'test'
+                }
+            })).toEqual({
+                f_futuros: {
+                    test: 'test',
+                    title: 'Formato Futuros (XBRL)',
+                    task: 'F_FUTURO'
+                }
+            });
+    });
+    it('Debe ingresar al type OBTENER_F_472', () => {
+        expect(ejecutarFormatoRegulatorio({},
+            {
+                type: OBTENER_F_472,
+                payload: {
+                    test: 'test'
+                }
+            })).toEqual({
+                f472: {
+                    test: 'test',
+                    title: 'Formato 472',
+                    task: 'F_472'
+                }
+            });
+    });
+    it('Debe ingresar al type EJECUTAR_FORMATO_REGULATORIO', () => {
+        expect(ejecutarFormatoRegulatorio({},
+            {
+                type: EJECUTAR_FORMATO_REGULATORIO,
+                payload:
+                {
+                    cosa: {}
+                }
+            })).toEqual({
+                formato: {
+                    cosa: {}
+                }
+            });
     });
 });
