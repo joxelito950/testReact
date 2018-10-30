@@ -1,7 +1,7 @@
 import {
     showProcessPrices, showProcessTypes, procesos, procesosNavs, findDetails, OBTENER_FORMATO_REGULATORIO,
     obtenerFechaProceso, actualizarTiposProcesos, obtenerListaPrecioManual, generarArchivo,
-    validacionFallida, tableDynamicParametroPortafolio, ejecutarValorFondo, showProcessNavs, listarValorFondo, obtenerListaProcesosFtp, showProcessTypesFtp, downloadFtp, reintentarProcesoFtp, showProcessAladdin, actualizarFechaProceso, showProcessAlertProgress, tableDynamic, ejecutarValorFondo2, getIdTipoPrecio, login, tableDynamicPrecioManual
+    validacionFallida, tableDynamicParametroPortafolio, ejecutarValorFondo, showProcessNavs, listarValorFondo, obtenerListaProcesosFtp, showProcessTypesFtp, downloadFtp, reintentarProcesoFtp, showProcessAladdin, actualizarFechaProceso, showProcessAlertProgress, tableDynamic, ejecutarValorFondo2, getIdTipoPrecio, login, tableDynamicPrecioManual, tableDynamicPrecioManualDetalle
 } from '../reducers/reducers';
 import {
     SHOW_TYPES_PROCESS, CHECKLIST, SHOW_PROCESS_NAVS, CHECKLIST_NAVS, GENERAR_ARCHIVO, FIND_DETAILS,
@@ -43,7 +43,10 @@ import {
     LOCAL_STORAGE_CLEAN,
     LISTAR_PRECIOS_MANUAL_POR_TIPO,
     ADD_ITEM_PRECIO_MANUAL,
-    REMOVE_ITEM_PRECIO_MANUAL
+    REMOVE_ITEM_PRECIO_MANUAL,
+    FIND_DETAILS_PRECIO_MANUAL_FCP,
+    ADD_ITEM_PRECIO_MANUAL_DETALLE,
+    REMOVE_ITEM_PRECIO_MANUAL_DETALLE
 } from '../actions';
 
 import rootReducer from '../reducers';
@@ -777,5 +780,66 @@ describe('Test de tableDynamicPrecioManual', () => {
             showAlertprocessTypesUpdated: false,
             listSize: 1
         });
+    });
+    it('Debe ingresar al type GUARDAR_PRECIOS_MANUAL', () => {
+        expect(tableDynamicPrecioManual({}, { type: GUARDAR_PRECIOS_MANUAL, payload: [''] }))
+            .toEqual({ listPrecioManual: [''], showAlertprocessTypesUpdated: true });
+    });
+    it('Debe ingresar al type OCULTAR', () => {
+        expect(tableDynamicPrecioManual({}, { type: OCULTAR }))
+            .toEqual({ showAlertprocessTypesUpdated: false });
+    });
+});
+
+describe('test de tableDynamicPrecioManualDetalle', () => {
+    it('No debe ingresar a ningun type y retornar el valor enviado', () => {
+        expect(tableDynamicPrecioManualDetalle('state', 'actions')).toEqual('state');
+    });
+    it('Debe ingresar al type FIND_DETAILS_PRECIO_MANUAL_FCP', () => {
+        expect(tableDynamicPrecioManualDetalle({}, {
+            type: FIND_DETAILS_PRECIO_MANUAL_FCP,
+            payload:
+            {
+                data: 'test',
+                precioManualFCP: 'test',
+                fechaProceso: 'test'
+            }
+        })).toEqual({
+            listPmdFCP: 'test',
+            precioManualFCP: 'test',
+            fechaProceso: 'test'
+        });
+    });
+    it('Debe ingresar al type ADD_ITEM_PRECIO_MANUAL_DETALLE', () => {
+        expect(tableDynamicPrecioManualDetalle(
+            { listPmdFCP: [], precioManualFCP: { identificador: 'test' }, fechaProceso: '' },
+            {
+                type: ADD_ITEM_PRECIO_MANUAL_DETALLE,
+                payload:
+                {
+                    listSize: 0
+                }
+            })).toEqual({
+                fechaProceso: '',
+                listPmdFCP: [{
+                    fechaAlta: '',
+                    id: expect.any(String),
+                    identificador: 'test',
+                    isin: ''
+                }],
+                listSize: 1,
+                precioManualFCP: {
+                    identificador: 'test'
+                }
+            });
+    });
+    it('Debe ingresar al type REMOVE_ITEM_PRECIO_MANUAL_DETALLE', () => {
+        expect(tableDynamicPrecioManualDetalle(
+            { listPmdFCP: [{ id: 1 }, { id: 8 }], listSize: 2 },
+            {
+                type: REMOVE_ITEM_PRECIO_MANUAL_DETALLE,
+                idItem: 1
+            }
+        )).toEqual({ listPmdFCP: [{ id: 8 }], listSize: 1 });
     });
 });
