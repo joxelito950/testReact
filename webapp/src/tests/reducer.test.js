@@ -948,10 +948,17 @@ describe('test de getListaControl', () => {
             payload: [
                 { nombre: 'PRECIOS_MANUAL' },
                 { nombre: 'MONEDAS' },
-                { nombre: 'PRECIO_MANUAL_ARCHIVO' }],
+                { nombre: 'PRECIO_MANUAL_ARCHIVO' },
+                { nombre: 'test' }
+            ],
         })).toEqual({
             listControl: [],
-            listTypePrice: []
+            listTypePrice: [
+                undefined,
+                undefined,
+                undefined,
+                { nombre: 'test' }
+            ]
         });
     });
 });
