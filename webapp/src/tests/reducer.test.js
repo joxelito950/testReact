@@ -1068,7 +1068,7 @@ describe('test de ejecutarScore', () => {
                 }
             }
         )).toEqual({
-            crgOperacionesTrd: {
+            crgOperTrdAjs: {
                 test: 'test',
                 title: 'Cargue de Operaciones - [AJUS]',
             }
