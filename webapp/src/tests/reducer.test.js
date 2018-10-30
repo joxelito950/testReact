@@ -19,7 +19,7 @@ import {
     GUARDAR_PRECIO_MANUAL_DETALLE, GET_LISTA_CONTROL, ADD_ITEM_LISTA_CONTROL, GUARDAR_LISTA_CONTROL,
     ELIMINAR_ITEM_LISTA_CONTROL, ID_PROCESO, SHOW_TYPES_PROCESS_PRICE, OBTENER_CRG_POSICIONES, OBTENER_F_351,
     OBTENER_F_471, OBTENER_F_468, OBTENER_F_397, OBTENER_F_FUTURO, OBTENER_F_472, EJECUTAR_FORMATO_REGULATORIO,
-    OBTENER_CRG_OPER_TRD_AJST, OBTENER_CRG_OPERACIONES_TRD,
+    OBTENER_CRG_OPER_TRD_AJST, OBTENER_CRG_OPERACIONES_TRD, OBTENER_CRG_OPERACIONES_REP, OBTENER_CRG_OPERACIONES_COLL, OBTENER_CRG_OPERACIONES_CMAT, OBTENER_CRG_AJT_OPE_CMAT, OBTENER_CRG_OP_AJS_SPOT, OBTENER_CRG_VEN_OPER, OBTENER_CRG_VEN_CASHWF, OBTENER_CRG_VEN_WEEK, OBTENER_CRG_VEN_PAY_FAILS, OBTENER_CRG_VEN_EVENTOS, OBTENER_CRG_FIXING, OBTENER_AJS_VENCIM, OBTENER_VAL_OPCT, OBTENER_VAL_OPCT_TTVRV, OBTENER_VAL_OPCT_TTVRF, OBTENER_VAL_POS, OBTENER_AJUSTE_FIX_VALO, OBTENER_VAL_POS_GAR_REP, OBTENER_CRG_VAL_FUT, OBTENER_CRG_VAL_FUT_PAGO, OBTENER_OPC_VALO_FUT, OBTENER_CRG_VAL_FX_SWAP, OBTENER_CRG_VEN_SWAPPAY, OBTENER_EVENTO_OPER, OBTENER_EVENTO_VENCIM, OBTENER_EVENTO_OPCT, OBTENER_EVENTO_FX, OBTENER_EVENTO_FUT, OBTENER_EVENTO_POS, OBTENER_CRG_VEN_FIXING, OBTENER_SPOT_FIXING_VENCIM, OBTENER_CRG_VEN_MAT,
 } from '../actions';
 
 import rootReducer from '../reducers';
@@ -1086,6 +1086,471 @@ describe('test de ejecutarScore', () => {
             crgOperacionesTrd: {
                 test: 'test',
                 title: 'Cargue de Operaciones - [TRADES]',
+            }
+        });
+    });
+    it('debe ingresar al type OBTENER_CRG_OPERACIONES_REP', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_CRG_OPERACIONES_REP,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            crgOperacionesRep: {
+                test: 'test',
+                title: 'Cargue de Operaciones - [REP]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_CRG_OPERACIONES_COLL', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_CRG_OPERACIONES_COLL,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            crgOperacionesColl: {
+                test: 'test',
+                title: 'Cargue de Operaciones - [GAR_REP]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_CRG_OPERACIONES_CMAT', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_CRG_OPERACIONES_CMAT,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            crgOperacionesCmat: {
+                test: 'test',
+                title: 'Cargue de Operaciones - [VENCIM_REP]'
+            }
+        });
+    });
+    it('Debe ingresar el type OBTENER_CRG_AJT_OPE_CMAT', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_CRG_AJT_OPE_CMAT,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            crgAjtOperacionesCmat: {
+                test: 'test',
+                title: 'Cargue de Operaciones - [AJT_CMAT]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_CRG_OP_AJS_SPOT', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_CRG_OP_AJS_SPOT,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            crgOpAjsSpot: {
+                test: 'test',
+                title: 'Cargue de Operaciones - [AJT_SPOT]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_CRG_VEN_OPER', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_CRG_VEN_OPER,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            crgVencimientoOp: {
+                test: 'test',
+                title: 'Cargue de Vencimientos - [TRADES]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_CRG_VEN_CASHWF', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_CRG_VEN_CASHWF,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            crgVencimientoCashWF: {
+                test: 'test',
+                title: 'Cargue de Vencimientos - [CASH WF]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_CRG_VEN_WEEK', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_CRG_VEN_WEEK,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            crgVencimientoWeek: {
+                test: 'test',
+                title: 'Cargue de Vencimientos - [WEEKEND]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_CRG_VEN_PAY_FAILS', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_CRG_VEN_PAY_FAILS,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            crgVencimientoPayfail: {
+                test: 'test',
+                title: 'Cargue de Vencimientos - [FAILS]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_CRG_VEN_EVENTOS', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_CRG_VEN_EVENTOS,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            crgVencimEventos: {
+                test: 'test',
+                title: 'Cargue de Vencimientos - [AJUSTES_EVENTOS]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_CRG_FIXING', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_CRG_FIXING,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            crgFixing: {
+                test: 'test',
+                title: 'Cargue de Vencimientos - [FIXING]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_AJS_VENCIM', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_AJS_VENCIM,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            crgAjsVencim: {
+                test: 'test',
+                title: 'Cargue de Vencimientos - [AJS_VENCIM]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_VAL_OPCT', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_VAL_OPCT,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            valOpct: {
+                test: 'test',
+                title: 'Valoración - [OPCT]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_VAL_OPCT_TTVRV', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_VAL_OPCT_TTVRV,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            valOpctTtvrv: {
+                test: 'test',
+                title: 'Valoración - [OPCT TTVRV]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_VAL_OPCT_TTVRF', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_VAL_OPCT_TTVRF,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            valOpctTtvrf: {
+                test: 'test',
+                title: 'Valoración - [OPCT TTVRF]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_VAL_POS', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_VAL_POS,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            valPos: {
+                test: 'test',
+                title: 'Valoración - [POS]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_AJUSTE_FIX_VALO', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_AJUSTE_FIX_VALO,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            ajusFixValo: {
+                test: 'test',
+                title: 'Valoración - [AJUS_FIX_VALO]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_VAL_POS_GAR_REP', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_VAL_POS_GAR_REP,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            valPosRep: {
+                test: 'test',
+                title: 'Valoración - [GAR_REP]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_CRG_VAL_FUT', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_CRG_VAL_FUT,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            crgValFut: {
+                test: 'test',
+                title: 'Valoración - [FUT]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_CRG_VAL_FUT_PAGO', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_CRG_VAL_FUT_PAGO,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            crgValFutPago: {
+                test: 'test',
+                title: 'Valoración - [FUT-PAGO]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_OPC_VALO_FUT', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_OPC_VALO_FUT,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            valOpcValoFut: {
+                test: 'test',
+                title: 'Valoración - [OPT]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_CRG_VAL_FX_SWAP', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_CRG_VAL_FX_SWAP,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            crgValFxSwap: {
+                test: 'test',
+                title: 'Valoración - [FW_SW]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_CRG_VEN_SWAPPAY', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_CRG_VEN_SWAPPAY,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            crgValVencimSwapPay: {
+                test: 'test',
+                title: 'Valoración - [VENCIM_SW_PAY]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_EVENTO_OPER', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_EVENTO_OPER,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            eventosOps: {
+                test: 'test',
+                title: 'Eventos - [OPERACIONES]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_EVENTO_VENCIM', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_EVENTO_VENCIM,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            eventosVencim: {
+                test: 'test',
+                title: 'Eventos - [VENCIMIENTOS]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_EVENTO_OPCT', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_EVENTO_OPCT,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            eventosOpct: {
+                test: 'test',
+                title: 'Eventos - [OPCT]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_EVENTO_FX', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_EVENTO_FX,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            eventosFx: {
+                test: 'test',
+                title: 'Eventos - [FX]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_EVENTO_FUT', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_EVENTO_FUT,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            eventosFut: {
+                test: 'test',
+                title: 'Eventos - [FUTUROS]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_CRG_VEN_FIXING', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_CRG_VEN_FIXING,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            crgVenFixing: {
+                test: 'test',
+                title: 'Cargue de Vencimientos - [FX_FIXING]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_SPOT_FIXING_VENCIM', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_SPOT_FIXING_VENCIM,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            crgSpotFixingVencim: {
+                test: 'test',
+                title: 'Cargue de Vencimientos - [SPOT_FIXING_VENCIM]'
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_CRG_VEN_MAT', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_CRG_VEN_MAT,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            crgVenMat: {
+                test: 'test',
+                title: 'Cargue de Vencimientos - [CRG_VEN_MAT]'
             }
         });
     });
