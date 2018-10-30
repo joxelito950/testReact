@@ -30,7 +30,7 @@ import {
     OBTENER_VAL_POS, OBTENER_AJUSTE_FIX_VALO, OBTENER_VAL_POS_GAR_REP, OBTENER_CRG_VAL_FUT, OBTENER_CRG_VAL_FUT_PAGO,
     OBTENER_OPC_VALO_FUT, OBTENER_CRG_VAL_FX_SWAP, OBTENER_CRG_VEN_SWAPPAY, OBTENER_EVENTO_OPER, OBTENER_EVENTO_VENCIM,
     OBTENER_EVENTO_OPCT, OBTENER_EVENTO_FX, OBTENER_EVENTO_FUT, OBTENER_EVENTO_POS, OBTENER_CRG_VEN_FIXING,
-    OBTENER_SPOT_FIXING_VENCIM, OBTENER_CRG_VEN_MAT, LISTAR_TIPO_PROCESO_CURVA,
+    OBTENER_SPOT_FIXING_VENCIM, OBTENER_CRG_VEN_MAT, LISTAR_TIPO_PROCESO_CURVA, DETALLE_CURVAS,
 } from '../actions';
 
 import rootReducer from '../reducers';
@@ -1580,16 +1580,56 @@ describe('test de obtenerListaProcesoCurvas', () => {
             }]
         })).toEqual({ listaTipoProceso: [{ id: 1 }] });
     });
-    it('Debe ingresar al type LISTAR_TIPO_PROCESO_CURVA_FECHA', () => {
+    it('Debe ingresar al type LISTAR_TIPO_PROCESO_CURVA_FECHA sin data', () => {
         expect(obtenerListaProcesoCurvas({},
             {
-                type:LISTAR_TIPO_PROCESO_CURVA_FECHA,
-                payload: [{
-                    id: 1
-                }] 
+                type: LISTAR_TIPO_PROCESO_CURVA_FECHA,
+                payload: {
+                    data: [],
+                    date: '2018'
+                }
             })).toEqual({
-
+                lista: [],
+                dateProcess: '2018',
+                completed: false,
+                size: 0
             });
+    });
+    it('Debe ingresar al type LISTAR_TIPO_PROCESO_CURVA_FECHA con data sin estado cargado', () => {
+        expect(obtenerListaProcesoCurvas({},
+            {
+                type: LISTAR_TIPO_PROCESO_CURVA_FECHA,
+                payload: {
+                    data: [{ estado: 'test' }],
+                    date: '2018'
+                }
+            })).toEqual({
+                lista: [{ estado: 'test' }],
+                dateProcess: '2018',
+                completed: false,
+                size: 1
+            });
+    });
+    it('Debe ingresar al type LISTAR_TIPO_PROCESO_CURVA_FECHA con data con estado cargado', () => {
+        expect(obtenerListaProcesoCurvas({},
+            {
+                type: LISTAR_TIPO_PROCESO_CURVA_FECHA,
+                payload: {
+                    data: [{ estado: 'CARGADO' }],
+                    date: '2018'
+                }
+            })).toEqual({
+                lista: [{ estado: 'CARGADO' }],
+                dateProcess: '2018',
+                completed: true,
+                size: 1
+            });
+    });
+    it('Debe ingresar al type DETALLE_CURVAS', () => {
+        expect(obtenerListaProcesoCurvas({}, {
+            type: DETALLE_CURVAS,
+            payload: { test: 'test' }
+        })).toEqual({ detalle: { test: 'test' } });
     });
 });
 
