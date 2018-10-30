@@ -5,7 +5,7 @@ import {
     obtenerListaProcesosFtp, showProcessTypesFtp, downloadFtp, reintentarProcesoFtp, showProcessAladdin,
     actualizarFechaProceso, showProcessAlertProgress, tableDynamic, ejecutarValorFondo2, getIdTipoPrecio,
     login, tableDynamicPrecioManual, tableDynamicPrecioManualDetalle, getListaControl,
-    ejecutarFormatoRegulatorio, ejecutarScore, obtenerListaProcesoCurvas,
+    ejecutarFormatoRegulatorio, ejecutarScore, obtenerListaProcesoCurvas, listarTiposProcesosCVA_DVA, listarProcesosPorFechaCVA_DVA,
 } from '../reducers/reducers';
 import {
     SHOW_TYPES_PROCESS, CHECKLIST, SHOW_PROCESS_NAVS, CHECKLIST_NAVS, GENERAR_ARCHIVO, FIND_DETAILS,
@@ -30,7 +30,7 @@ import {
     OBTENER_VAL_POS, OBTENER_AJUSTE_FIX_VALO, OBTENER_VAL_POS_GAR_REP, OBTENER_CRG_VAL_FUT, OBTENER_CRG_VAL_FUT_PAGO,
     OBTENER_OPC_VALO_FUT, OBTENER_CRG_VAL_FX_SWAP, OBTENER_CRG_VEN_SWAPPAY, OBTENER_EVENTO_OPER, OBTENER_EVENTO_VENCIM,
     OBTENER_EVENTO_OPCT, OBTENER_EVENTO_FX, OBTENER_EVENTO_FUT, OBTENER_EVENTO_POS, OBTENER_CRG_VEN_FIXING,
-    OBTENER_SPOT_FIXING_VENCIM, OBTENER_CRG_VEN_MAT, LISTAR_TIPO_PROCESO_CURVA, DETALLE_CURVAS,
+    OBTENER_SPOT_FIXING_VENCIM, OBTENER_CRG_VEN_MAT, LISTAR_TIPO_PROCESO_CURVA, DETALLE_CURVAS, LISTAR_TIPOS_PROCESOS_CVA_DVA,
 } from '../actions';
 
 import rootReducer from '../reducers';
@@ -1633,3 +1633,48 @@ describe('test de obtenerListaProcesoCurvas', () => {
     });
 });
 
+describe('test de listarTiposProcesosCVA_DVA', () => {
+    it('No debe ingresar a ningun type y retornar el valor enviado', () => {
+        expect(listarTiposProcesosCVA_DVA('state', 'actions'))
+            .toEqual('state');
+    });
+    it('Debe ingresar al type LISTAR_TIPOS_PROCESOS_CVA_DVA', () => {
+        expect(listarTiposProcesosCVA_DVA({},
+            {
+                type: listarProcesosPorFechaCVA_DVA,
+                payload: {
+                    test: 'test'
+                }
+            })).toEqual(
+                {
+                    listProcessTypes: {
+                        test: 'test'
+                    }
+                }
+            );
+    });
+});
+
+describe('test de listarProcesosPorFechaCVA_DVA', () => {
+    it('No debe ingresar a ningun type y retornar el valor enviado', () => {
+        expect(listarProcesosPorFechaCVA_DVA('state', 'actions'))
+            .toEqual('state');
+    });
+    it('Debe ingresar al type LISTAR_PROCESOS_POR_FECHA_CVA_DVA', () => {
+        expect(listarTiposProcesosCVA_DVA({},
+            {
+                type: listarTiposProcesosCVA_DVA,
+                payload: {
+                    data: 'test',
+                    searchDate: 'test'
+                }
+            })).toEqual(
+                {
+                    listProcess: {
+                        data: 'test',
+                        searchDate: 'test'
+                    }
+                }
+            );
+    });
+});
