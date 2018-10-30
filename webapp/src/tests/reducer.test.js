@@ -1580,5 +1580,16 @@ describe('test de obtenerListaProcesoCurvas', () => {
             }]
         })).toEqual({ listaTipoProceso: [{ id: 1 }] });
     });
+    it('Debe ingresar al type LISTAR_TIPO_PROCESO_CURVA_FECHA', () => {
+        expect(obtenerListaProcesoCurvas({},
+            {
+                type:LISTAR_TIPO_PROCESO_CURVA_FECHA,
+                payload: [{
+                    id: 1
+                }] 
+            })).toEqual({
+
+            });
+    });
 });
 
