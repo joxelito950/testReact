@@ -1,7 +1,7 @@
 import {
     showProcessPrices, showProcessTypes, procesos, procesosNavs, findDetails, OBTENER_FORMATO_REGULATORIO,
     obtenerFechaProceso, actualizarTiposProcesos, obtenerListaPrecioManual, generarArchivo,
-    validacionFallida, tableDynamicParametroPortafolio, ejecutarValorFondo, showProcessNavs, listarValorFondo, obtenerListaProcesosFtp, showProcessTypesFtp, downloadFtp, reintentarProcesoFtp, showProcessAladdin, actualizarFechaProceso, showProcessAlertProgress, tableDynamic, ejecutarValorFondo2, getIdTipoPrecio, login, tableDynamicPrecioManual, tableDynamicPrecioManualDetalle, getListaControl, ejecutarFormatoRegulatorio
+    validacionFallida, tableDynamicParametroPortafolio, ejecutarValorFondo, showProcessNavs, listarValorFondo, obtenerListaProcesosFtp, showProcessTypesFtp, downloadFtp, reintentarProcesoFtp, showProcessAladdin, actualizarFechaProceso, showProcessAlertProgress, tableDynamic, ejecutarValorFondo2, getIdTipoPrecio, login, tableDynamicPrecioManual, tableDynamicPrecioManualDetalle, getListaControl, ejecutarFormatoRegulatorio, ejecutarScore
 } from '../reducers/reducers';
 import {
     SHOW_TYPES_PROCESS, CHECKLIST, SHOW_PROCESS_NAVS, CHECKLIST_NAVS, GENERAR_ARCHIVO, FIND_DETAILS,
@@ -63,6 +63,8 @@ import {
     OBTENER_F_FUTURO,
     OBTENER_F_472,
     EJECUTAR_FORMATO_REGULATORIO,
+    OBTENER_CRG_OPER_TRD_AJST,
+    OBTENER_CRG_OPERACIONES_TRD,
 } from '../actions';
 
 import rootReducer from '../reducers';
@@ -1095,5 +1097,41 @@ describe('test de ejecutarFormatoRegulatorio', () => {
                     cosa: {}
                 }
             });
+    });
+});
+describe('test de ejecutarScore', () => {
+    it('No debe ingresar aningun type y retornar el valor enviado', () => {
+        expect(ejecutarScore('state', 'actions'))
+            .toEqual('state');
+    });
+    it('Debe ingresar al type OBTENER_CRG_OPER_TRD_AJST', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_CRG_OPER_TRD_AJST,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            crgOperacionesTrd: {
+                test: 'test',
+                title: 'Cargue de Operaciones - [AJUS]',
+            }
+        });
+    });
+    it('Debe ingresar al type OBTENER_CRG_OPERACIONES_TRD', () => {
+        expect(ejecutarScore({},
+            {
+                type: OBTENER_CRG_OPERACIONES_TRD,
+                payload: {
+                    test: 'test'
+                }
+            }
+        )).toEqual({
+            crgOperacionesTrd: {
+                test: 'test',
+                title: 'Cargue de Operaciones - [TRADES]',
+            }
+        });
     });
 });
