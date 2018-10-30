@@ -1,7 +1,7 @@
 import {
     showProcessPrices, showProcessTypes, procesos, procesosNavs, findDetails, OBTENER_FORMATO_REGULATORIO,
     obtenerFechaProceso, actualizarTiposProcesos, obtenerListaPrecioManual, generarArchivo,
-    validacionFallida, tableDynamicParametroPortafolio, ejecutarValorFondo, showProcessNavs, listarValorFondo, obtenerListaProcesosFtp, showProcessTypesFtp, downloadFtp, reintentarProcesoFtp, showProcessAladdin, actualizarFechaProceso, showProcessAlertProgress, tableDynamic, ejecutarValorFondo2, getIdTipoPrecio, login, tableDynamicPrecioManual, tableDynamicPrecioManualDetalle
+    validacionFallida, tableDynamicParametroPortafolio, ejecutarValorFondo, showProcessNavs, listarValorFondo, obtenerListaProcesosFtp, showProcessTypesFtp, downloadFtp, reintentarProcesoFtp, showProcessAladdin, actualizarFechaProceso, showProcessAlertProgress, tableDynamic, ejecutarValorFondo2, getIdTipoPrecio, login, tableDynamicPrecioManual, tableDynamicPrecioManualDetalle, getListaControl
 } from '../reducers/reducers';
 import {
     SHOW_TYPES_PROCESS, CHECKLIST, SHOW_PROCESS_NAVS, CHECKLIST_NAVS, GENERAR_ARCHIVO, FIND_DETAILS,
@@ -48,7 +48,13 @@ import {
     ADD_ITEM_PRECIO_MANUAL_DETALLE,
     REMOVE_ITEM_PRECIO_MANUAL_DETALLE,
     GUARDAR_PRECIO_MANUAL_DETALLE,
-    ocultar
+    ocultar,
+    GET_LISTA_CONTROL,
+    ADD_ITEM_LISTA_CONTROL,
+    GUARDAR_LISTA_CONTROL,
+    ELIMINAR_ITEM_LISTA_CONTROL,
+    ID_PROCESO,
+    SHOW_TYPES_PROCESS_PRICE
 } from '../actions';
 
 import rootReducer from '../reducers';
@@ -856,6 +862,96 @@ describe('test de tableDynamicPrecioManualDetalle', () => {
             {
                 type: OCULTAR
             }
-        )).toEqual({ showAlertprocessTypesUpdated: false});
+        )).toEqual({ showAlertprocessTypesUpdated: false });
+    });
+});
+
+describe('test de getListaControl', () => {
+    it('No debe ingresar a ningun type y retornar el valor enviado', () => {
+        expect(getListaControl('state', 'actions'))
+            .toEqual('state');
+    });
+    it('Debe ingresar al type GET_LISTA_CONTROL', () => {
+        expect(getListaControl({}, {
+            type: GET_LISTA_CONTROL,
+            payload:
+            {
+                data: 'test'
+            }
+        })).toEqual({
+            listControl: 'test'
+        });
+    });
+    it('Debe ingresar al type ADD_ITEM_LISTA_CONTROL', () => {
+        expect(getListaControl(
+            {
+                listControl: [
+                    {
+                        codigo: '',
+                        fechaAlta: '',
+                        id: '',
+                        tipoProceso: ''
+                    }]
+            },
+            {
+                type: ADD_ITEM_LISTA_CONTROL,
+                payload:
+                {
+                    listSize: 0
+                }
+            }))
+            .toEqual({
+                listControl:
+                    [{
+                        id: expect.any(String),
+                        codigo: '',
+                        fechaAlta: '',
+                        tipoProceso: ''
+
+                    },
+                    {
+                        codigo: '',
+                        fechaAlta: '',
+                        id: expect.any(String),
+                        tipoProceso: ''
+                    }],
+                listSize: 1
+            });
+    });
+    it('Debre indresar al type GUARDAR_LISTA_CONTROL', () => {
+        expect(getListaControl({},
+            {
+                type: GUARDAR_LISTA_CONTROL
+            })).toEqual({ showAlertprocessTypesUpdated: true });
+    });
+    it('Debe ingresar al type ELIMINAR_ITEM_LISTA_CONTROL', () => {
+        expect(getListaControl(
+            { listControl: [{ id: 1 }, { id: 8 }], listSize: 2 },
+            { type: ELIMINAR_ITEM_LISTA_CONTROL, idItem: 8 }
+        )).toEqual({ listControl: [{ id: 1 }], listSize: 1 });
+    });
+    it('Debe ingresar al type ID_PROCESO', () => {
+        expect(getListaControl({},
+            {
+                type: ID_PROCESO,
+                idProceso: 'state'
+            })).toEqual({ idProceso: 'state' });
+    });
+    it('Dbe ingresar al type OCULTAR', () => {
+        expect(getListaControl({}, {
+            type: OCULTAR
+        })).toEqual({ showAlertprocessTypesUpdated: false });
+    });
+    it('Debe ingresar al type SHOW_TYPES_PROCESS_PRICE', () => {
+        expect(getListaControl({}, {
+            type: SHOW_TYPES_PROCESS_PRICE,
+            payload: [
+                { nombre: 'PRECIOS_MANUAL' },
+                { nombre: 'MONEDAS' },
+                { nombre: 'PRECIO_MANUAL_ARCHIVO' }],
+        })).toEqual({
+            listControl: [],
+            listTypePrice: []
+        });
     });
 });
