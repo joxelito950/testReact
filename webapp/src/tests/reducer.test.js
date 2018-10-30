@@ -46,7 +46,9 @@ import {
     REMOVE_ITEM_PRECIO_MANUAL,
     FIND_DETAILS_PRECIO_MANUAL_FCP,
     ADD_ITEM_PRECIO_MANUAL_DETALLE,
-    REMOVE_ITEM_PRECIO_MANUAL_DETALLE
+    REMOVE_ITEM_PRECIO_MANUAL_DETALLE,
+    GUARDAR_PRECIO_MANUAL_DETALLE,
+    ocultar
 } from '../actions';
 
 import rootReducer from '../reducers';
@@ -841,5 +843,19 @@ describe('test de tableDynamicPrecioManualDetalle', () => {
                 idItem: 1
             }
         )).toEqual({ listPmdFCP: [{ id: 8 }], listSize: 1 });
+    });
+    it('Debe ingresar al type GUARDAR_PRECIO_MANUAL_DETALLE', () => {
+        expect(tableDynamicPrecioManualDetalle({},
+            {
+                type: GUARDAR_PRECIO_MANUAL_DETALLE
+            }
+        )).toEqual({ showAlertprocessTypesUpdated: true });
+    });
+    it('Debe ingresar al type OCULTAR', () => {
+        expect(tableDynamicPrecioManualDetalle({},
+            {
+                type: OCULTAR
+            }
+        )).toEqual({ showAlertprocessTypesUpdated: false});
     });
 });
